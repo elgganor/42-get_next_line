@@ -6,7 +6,7 @@
 /*   By: mrouabeh <mrouabeh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 10:50:34 by mrouabeh          #+#    #+#             */
-/*   Updated: 2019/11/12 11:33:08 by mrouabeh         ###   ########.fr       */
+/*   Updated: 2019/11/12 20:27:48 by mrouabeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,11 @@ int		get_line(char **line, char **str, int index, int step)
 	char	*tmp;
 
 	i = 0;
+	if (!(*str))
+	{
+		*line = ft_strdup("");
+		return (1);
+	}
 	if (!(*line = (char *)ft_calloc(index + 1, sizeof(char))))
 		return (0);
 	while (i < index)
@@ -60,10 +65,9 @@ int		get_next_line(int fd, char **line)
 {
 	static char	*str = NULL;
 	int			r;
-	char		*buf;
+	char		buf[BUFFER_SIZE + 1];
 
-	if (check_error(fd, line) == 0
-			|| !(buf = (char *)ft_calloc(BUFFER_SIZE + 1, sizeof(char))))
+	if (check_error(fd, line) == 0)
 		return (-1);
 	while (check_line_break(str) == -1 && (r = read(fd, buf, BUFFER_SIZE)) != 0)
 	{
@@ -71,10 +75,9 @@ int		get_next_line(int fd, char **line)
 			return (-1);
 		ft_strjoin_free(&str, buf);
 	}
-	free(buf);
 	if ((check_line_break(str) != -1))
 		return ((get_line(line, &str, check_line_break(str), 0) == 1) ? 1 : -1);
-	if (r == 0 && (str != NULL))
+	if (r == 0)
 		return ((get_line(line, &str, ft_strlen(str), 1) == 1) ? 0 : -1);
 	return (0);
 }

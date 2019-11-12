@@ -17,6 +17,8 @@ size_t	ft_strlen(const char *s)
 	size_t	len;
 
 	len = 0;
+	if (!s)
+		return (0);
 	while (s[len] != '\0')
 		len++;
 	return (len);
@@ -88,7 +90,7 @@ void	ft_strjoin_free(char **str, char *buf)
 {
 	char	*tmp;
 
-	if (!(*str))
+	if (*str == NULL)
 		*str = ft_strdup(buf);
 	else if (**str == '\0')
 	{
