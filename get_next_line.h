@@ -22,7 +22,7 @@ size_t	ft_strlen(const char *s);
 char	*ft_strdup(const char *s);
 char	*ft_strjoin(char *buf, char *tmp);
 void	ft_strjoin_free(char **str, char *buf);
-int	get_line(char **line, char **str, int index, int step);
+int		get_line(char **line, char **str, int index, int step);
 int		check_line_break(char *str);
 int		check_error(int fd, char **line);
 void	*ft_calloc(size_t count, size_t size);

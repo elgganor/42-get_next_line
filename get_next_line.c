@@ -35,7 +35,7 @@ int		check_line_break(char *str)
 	return (-1);
 }
 
-int	get_line(char **line, char **str, int index, int step)
+int		get_line(char **line, char **str, int index, int step)
 {
 	int		i;
 	char	*tmp;
@@ -73,12 +73,8 @@ int		get_next_line(int fd, char **line)
 	}
 	free(buf);
 	if ((check_line_break(str) != -1))
-	{
 		return ((get_line(line, &str, check_line_break(str), 0) == 1) ? 1 : -1);
-	}
 	if (r == 0 && (str != NULL))
-	{
 		return ((get_line(line, &str, ft_strlen(str), 1) == 1) ? 0 : -1);
-	}
 	return (0);
 }
