@@ -35,14 +35,14 @@ int		check_line_break(char *str)
 	return (-1);
 }
 
-void	get_line(char **line, char **str, int index, int step)
+int	get_line(char **line, char **str, int index, int step)
 {
 	int		i;
 	char	*tmp;
 
 	i = 0;
 	if (!(*line = (char *)ft_calloc(index + 1, sizeof(char))))
-		return ;
+		return (0);
 	while (i < index)
 	{
 		(*line)[i] = (*str)[i];
@@ -53,6 +53,7 @@ void	get_line(char **line, char **str, int index, int step)
 	free(*str);
 	*str = (step == 1) ? NULL : ft_strdup(tmp + index + 1);
 	free(tmp);
+	return (1);
 }
 
 int		get_next_line(int fd, char **line)
@@ -73,13 +74,11 @@ int		get_next_line(int fd, char **line)
 	free(buf);
 	if ((check_line_break(str) != -1))
 	{
-		get_line(line, &str, check_line_break(str), 0);
-		return (1);
+		return ((get_line(line, &str, check_line_break(str), 0) == 1) ? 1 : -1);
 	}
 	if (r == 0 && (str != NULL))
 	{
-		get_line(line, &str, ft_strlen(str), 1);
-		return (1);
+		return ((get_line(line, &str, ft_strlen(str), 1) == 1) ? 0 : -1);
 	}
 	return (0);
 }
