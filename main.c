@@ -28,7 +28,7 @@ int main(int ac, char **av)
             write(1, "\n", 1);
             free(line);
         }
-        while (1) ;
+        // while (1) ;
 
         /* Test au cas par cas */
         // get_next_line(fd, &line);
